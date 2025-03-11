@@ -1,0 +1,116 @@
+table Date_Table
+	lineageTag: ccbdf111-c763-4204-b95c-04c7e834648c
+	dataCategory: Time
+
+	measure AllMOnthName = All(Date_Table[Month Name])
+		lineageTag: 9bb2e566-6c90-4b5c-a576-d3a46a8f6d14
+
+	measure month_name = CALCULATE(Date_Table[AllMOnthName],All(Date_Table))
+		lineageTag: 6f7d1f09-3086-4e86-912b-63ad3ecb9453
+
+	measure r_month_name
+		lineageTag: 45f1e656-5979-4fb5-9007-9550a22effb0
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: c297e61c-4fbd-4521-b025-589b2783d19d
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d2b3f0d-3ed3-45c7-bcd3-b3d6a2f23490
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 82bd93b3-5cc2-4297-a453-6df813cd7db7
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: 191041c2-339e-409e-8eb9-180147b4a694
+		summarizeBy: none
+		sourceColumn: Month Name
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name'
+		dataType: string
+		lineageTag: 51339b7d-7ec4-4c95-8875-a38b13682e48
+		summarizeBy: none
+		sourceColumn: Day Name
+		sortByColumn: 'Day of Week'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week'
+		dataType: int64
+		formatString: 0
+		lineageTag: b4603f4c-24f1-4f26-b320-0392b57b49ae
+		summarizeBy: sum
+		sourceColumn: Day of Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column Slicers = CONCATENATE('Date_Table'[Month Name],CONCATENATE(" ",'Date_Table'[Year]))
+		lineageTag: 0cbc93ee-e733-45ab-a64f-7edbedca3293
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column maxDate = EOMONTH((Date_Table[Date]),0)
+		formatString: General Date
+		lineageTag: 711c1f04-eaf9-4d01-b465-20ada147df0a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column minDateDate = EOMONTH((Date_Table[Date]),-13)+1
+		formatString: General Date
+		lineageTag: 7610297b-f48c-40bc-a3b9-d992f913e22f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Date_Table = m
+		mode: import
+		source =
+				let
+				    Source = List.Dates(#date(2010,1,1),Duration.Days(#date(2017,12,31) - #date(2010,1,1)) + 1,#duration(1,0,0,0)),
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Renamed Columns" = Table.RenameColumns(#"Converted to Table",{{"Column1", "Date"}}),
+				    #"Inserted Month" = Table.AddColumn(#"Renamed Columns", "Month", each Date.Month([Date]), Int64.Type),
+				    #"Inserted Year" = Table.AddColumn(#"Inserted Month", "Year", each Date.Year([Date]), Int64.Type),
+				    #"Inserted Month Name" = Table.AddColumn(#"Inserted Year", "Month Name", each Date.MonthName([Date]), type text),
+				    #"Removed Blank Rows" = Table.SelectRows(#"Inserted Month Name", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Blank Rows",{{"Date", type date}}),
+				    #"Inserted Day of Week" = Table.AddColumn(#"Changed Type", "Day of Week", each Date.DayOfWeek([Date]), Int64.Type),
+				    #"Sorted Rows" = Table.Sort(#"Inserted Day of Week",{{"Day of Week", Order.Ascending}}),
+				    #"Inserted Day Name" = Table.AddColumn(#"Sorted Rows", "Day Name", each Date.DayOfWeekName([Date]), type text)
+				in
+				    #"Inserted Day Name"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

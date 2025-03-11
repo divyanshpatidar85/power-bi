@@ -1,0 +1,9 @@
+ = 
+VAR MaxDate = MAX('100_Sales_Records'[Order Date])  
+VAR StartDate = EDATE(MaxDate, -3)
+RETURN
+    CALCULATE(
+        SUM('100_Sales_Records'[Unit Cost]), 
+        '100_Sales_Records'[Order Date] >= StartDate, 
+        '100_Sales_Records'[Order Date] <= MaxDate  
+    )

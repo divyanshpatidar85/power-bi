@@ -1,0 +1,76 @@
+table 'sales_target_csv (2)'
+	lineageTag: e8431826-bab3-4b9c-960d-ca4ca1e0084c
+
+	column Mode
+		dataType: string
+		lineageTag: 708f8b86-9ed1-4fa3-aee7-02c1e05c6a1b
+		summarizeBy: none
+		sourceColumn: Mode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 368355a6-ea67-4714-b90e-9667c09545f0
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		lineageTag: 473cd483-4e89-4582-9af0-243785d5033a
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: int64
+		formatString: 0
+		lineageTag: 2eb577fc-3d94-47de-a448-dbefdd66a8b1
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2ee2c163-b28e-4bea-8743-46e9840836c0
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: fe4e1f1f-a746-4886-87df-8404a675220c
+			defaultHierarchy: LocalDateTable_30ab1889-11bc-43c9-84ec-2ccf13078090.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'sales_target_csv (2)' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("E:\Addend Analytics\power-bi\100-Sales-Records\sales target.csv.txt"),[Delimiter=",", Columns=14, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Mode", type text}, {"Year", Int64.Type}, {"January", Int64.Type}, {"February", Int64.Type}, {"March", Int64.Type}, {"April", Int64.Type}, {"May", Int64.Type}, {"June", Int64.Type}, {"July", Int64.Type}, {"August", Int64.Type}, {"September", Int64.Type}, {"October", Int64.Type}, {"November", Int64.Type}, {"December", Int64.Type}}),
+				    #"Unpivoted Other Columns" = Table.UnpivotOtherColumns(#"Changed Type", {"Mode", "Year"}, "Attribute", "Value"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Unpivoted Other Columns",{{"Attribute", "Month"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Date", each 1),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Added Custom", "Date.1", each Text.Combine({Text.From([Date], "en-US"), [Month], Text.From([Year], "en-US")}, "/"), type text),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Inserted Merged Column",{{"Date.1", type date}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"Date"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns",{{"Date.1", "Date"}}),
+				    #"Inserted End of Month" = Table.AddColumn(#"Renamed Columns1", "End of Month", each Date.EndOfMonth([Date]), type date),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Inserted End of Month",{"End of Month"})
+				in
+				    #"Removed Columns1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

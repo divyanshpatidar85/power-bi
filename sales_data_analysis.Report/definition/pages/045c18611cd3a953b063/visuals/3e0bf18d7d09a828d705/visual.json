@@ -1,0 +1,90 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "3e0bf18d7d09a828d705",
+  "position": {
+    "x": 337.11308479334826,
+    "y": 67.173825014172721,
+    "z": 1000,
+    "height": 561.02583484059062,
+    "width": 640.63925707961016,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "Order Date"
+                }
+              },
+              "queryRef": "100_Sales_Records.Order Date",
+              "nativeQueryRef": "Order Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "Ship Date"
+                }
+              },
+              "queryRef": "100_Sales_Records.Ship Date",
+              "nativeQueryRef": "Ship Date"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "g_date_diff"
+                }
+              },
+              "queryRef": "100_Sales_Records.g_date_diff",
+              "nativeQueryRef": "g_date_diff"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "100_Sales_Records"
+                  }
+                },
+                "Property": "g_date_diff"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

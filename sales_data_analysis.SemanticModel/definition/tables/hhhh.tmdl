@@ -1,0 +1,29 @@
+table hhhh
+	lineageTag: a2a147eb-d56e-4f42-a863-d94b704168c0
+
+	column 'Order Date'
+		formatString: General Date
+		lineageTag: b56c31d5-2570-4e52-aac0-3b962d854906
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Order Date]
+
+		variation Variation
+			isDefault
+			relationship: ce29ed94-903d-4ffc-975c-7902f59e8f4e
+			defaultHierarchy: LocalDateTable_c126fc19-78b3-4e0d-94a6-817e9cc1ae53.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition hhhh = calculated
+		mode: import
+		source = ```
+				DATESINPERIOD(
+				        '100_Sales_Records'[Order Date], 
+				         MAX('100_Sales_Records'[Order Date]),-- Date column from your Date table
+				        -3,MONTH
+				    )
+				```
+
+	annotation PBI_Id = 9026bf5bad5f47bd911df91e1c7b72b0
+

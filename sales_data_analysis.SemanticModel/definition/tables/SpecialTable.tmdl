@@ -1,0 +1,59 @@
+table SpecialTable
+	lineageTag: df31df27-74fe-4556-a3cc-3c25cf2d4046
+
+	column 'Max Date'
+		formatString: General Date
+		lineageTag: 954753b4-5c8e-458c-9722-651e39bc367f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Max Date]
+
+		variation Variation
+			isDefault
+			relationship: 3e020b2f-63b6-4b81-a51b-83d2fe4e3898
+			defaultHierarchy: LocalDateTable_cc3cedf8-50d7-4d8d-841c-effc1bef8b70.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Slicer
+		lineageTag: fdec548b-6126-432d-8f9c-ef39542e8bcd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Slicer]
+		sortByColumn: 'Max Date'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Min Date' = EDATE(SpecialTable[Max Date],-13)+1
+		formatString: General Date
+		lineageTag: b1f2d3b4-ea75-4781-a888-8e4e6875b9d3
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: a1432cc3-44c7-48fd-ba6f-bbb9626d4108
+			defaultHierarchy: LocalDateTable_d7194090-a977-4a21-89c4-6796a66b39a0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = YEAR(SpecialTable[Max Date])
+		formatString: 0
+		lineageTag: 92c1e264-f0ba-437b-a9a2-669937f0f25c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SpecialTable = calculated
+		mode: import
+		source = ```
+				
+				SELECTCOLUMNS(
+				    Date_Table, 
+				    "Max Date", EOMONTH(Date_Table[Date],0), 
+				    "Slicer", Date_Table[Slicers]
+				)
+				
+				```
+
+	annotation PBI_Id = d4276fa9841c4debb36f73539fb7b8f8
+

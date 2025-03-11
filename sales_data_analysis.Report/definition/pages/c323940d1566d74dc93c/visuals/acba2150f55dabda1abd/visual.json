@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "acba2150f55dabda1abd",
+  "position": {
+    "x": 70.695315251849237,
+    "y": 152.93272278971469,
+    "z": 0,
+    "height": 344.82000704473404,
+    "width": 819.48855230715037,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "Country"
+                }
+              },
+              "queryRef": "100_Sales_Records.Country",
+              "nativeQueryRef": "Country"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "unit_sold"
+                }
+              },
+              "queryRef": "100_Sales_Records.unit_sold",
+              "nativeQueryRef": "unit_sold"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "100_Sales_Records"
+                        }
+                      },
+                      "Property": "Units Sold"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(100_Sales_Records.Units Sold)",
+              "nativeQueryRef": "Sum of Units Sold"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "RankBasedonunit sold"
+                }
+              },
+              "queryRef": "100_Sales_Records.RankBasedonunit sold",
+              "nativeQueryRef": "RankBasedonunit sold"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "D_rank"
+                }
+              },
+              "queryRef": "100_Sales_Records.D_rank",
+              "nativeQueryRef": "D_rank"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "100_Sales_Records"
+                  }
+                },
+                "Property": "unit_sold"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

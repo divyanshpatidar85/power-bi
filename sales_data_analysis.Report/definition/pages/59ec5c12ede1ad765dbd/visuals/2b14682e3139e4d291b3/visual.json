@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "2b14682e3139e4d291b3",
+  "position": {
+    "x": 826,
+    "y": 132,
+    "z": 3000,
+    "height": 577,
+    "width": 454,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "userPrincipal"
+                }
+              },
+              "queryRef": "100_Sales_Records.userPrincipal",
+              "nativeQueryRef": "userPrincipal"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

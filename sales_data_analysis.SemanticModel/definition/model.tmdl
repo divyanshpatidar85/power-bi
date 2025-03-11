@@ -1,0 +1,49 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["100_Sales_Records","sales_target_csv","Date_Table","sales_target_csv (2)","sales_target_csv (3)","divyanshpatidar85"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.140.1078.0 (25.02)+2cce24fb16e8b71ba835921d23e7ffc1fab909df
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 100_Sales_Records
+ref table DateTableTemplate_67a5f552-d1f7-4c80-8ac3-4756b7ade3a5
+ref table LocalDateTable_df9382f1-4912-4c70-9118-28c9bc30f369
+ref table sales_target_csv
+ref table Date_Table
+ref table 'Parameter 2'
+ref table 'sales_target_csv (2)'
+ref table LocalDateTable_30ab1889-11bc-43c9-84ec-2ccf13078090
+ref table 'sales_target_csv (3)'
+ref table LocalDateTable_eb112a1b-4d65-4e24-be46-c98f5129a217
+ref table abhi
+ref table hhhh
+ref table LocalDateTable_c126fc19-78b3-4e0d-94a6-817e9cc1ae53
+ref table just_doing_timepass
+ref table LocalDateTable_d4eb1bc3-5788-4b02-b673-3e21b76f4b56
+ref table just_a_table
+ref table SpecialTable
+ref table LocalDateTable_cc3cedf8-50d7-4d8d-841c-effc1bef8b70
+ref table LocalDateTable_d7194090-a977-4a21-89c4-6796a66b39a0
+ref table divyanshpatidar85
+ref table LocalDateTable_6d259f1a-a980-4f2f-a717-ef7f43fbea45
+ref table LocalDateTable_253f65c7-28e2-4631-8147-9d2acc55372e
+ref table snjsnj
+ref table LocalDateTable_8b299df3-eabc-497a-a534-77b490f32110
+ref table LocalDateTable_f6993e81-7916-47e9-87ae-20ffb9f548d8
+ref table Table
+ref table Divyansh_Patidar
+ref table 'Table 2'
+
+ref role region
+
+ref cultureInfo en-US
+

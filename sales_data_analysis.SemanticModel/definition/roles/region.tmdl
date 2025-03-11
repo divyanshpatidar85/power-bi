@@ -1,0 +1,7 @@
+role region
+	modelPermission: read
+
+	tablePermission 100_Sales_Records = [Region]="Asia"
+
+	annotation PBI_Id = a8e7e577c99b4056a59ee76a0a1d8679
+

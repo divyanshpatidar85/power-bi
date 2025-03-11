@@ -1,0 +1,113 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "e70dd52a9240c6962499",
+  "position": {
+    "x": 34.830872229571035,
+    "y": 148.03120697567692,
+    "z": 0,
+    "height": 490.12013065896389,
+    "width": 686.66576681154334,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date_Table"
+                    }
+                  },
+                  "Property": "Year"
+                }
+              },
+              "queryRef": "Sum(Date_Table.Year)",
+              "nativeQueryRef": "Year"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date_Table"
+                    }
+                  },
+                  "Property": "Month Name"
+                }
+              },
+              "queryRef": "Date_Table.Month Name",
+              "nativeQueryRef": "Month Name"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "100_Sales_Records"
+                        }
+                      },
+                      "Property": "Units Sold"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(100_Sales_Records.Units Sold)",
+              "nativeQueryRef": "Sum of Units Sold"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "a_unit_sold"
+                }
+              },
+              "queryRef": "100_Sales_Records.a_unit_sold",
+              "nativeQueryRef": "a_unit_sold"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "a_3_months_unitSold_sum"
+                }
+              },
+              "queryRef": "100_Sales_Records.a_3_months_unitSold_sum",
+              "nativeQueryRef": "a_3_months_unitSold_sum"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "a_percentage_totalunitsold_vs_a3unitSold"
+                }
+              },
+              "queryRef": "100_Sales_Records.a_percentage",
+              "nativeQueryRef": "a_percentage_totalunitsold_vs_a3unitSold"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

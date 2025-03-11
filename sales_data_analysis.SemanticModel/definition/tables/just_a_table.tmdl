@@ -1,0 +1,17 @@
+table just_a_table
+	lineageTag: b259058a-4fef-439c-8105-971110aa0004
+
+	column 'Order Priority'
+		lineageTag: 1175c8c5-7dd3-4902-8447-6f581629fdf3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Order Priority]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition just_a_table = calculated
+		mode: import
+		source = ALLEXCEPT('100_Sales_Records',)
+
+	annotation PBI_Id = 46758d2ee79045b9be09a2adf17dcf50
+

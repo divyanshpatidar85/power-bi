@@ -1,0 +1,69 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "e604a37ba00883da8b50",
+  "position": {
+    "x": 52.246308344356557,
+    "y": 70.90570418162676,
+    "z": 1000,
+    "height": 590.88086818022293,
+    "width": 466.484895931755,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "multiRowCard",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date_Table"
+                    }
+                  },
+                  "Property": "Day Name"
+                }
+              },
+              "queryRef": "Date_Table.Day Name",
+              "nativeQueryRef": "Day Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date_Table"
+                    }
+                  },
+                  "Property": "Day Name"
+                }
+              },
+              "queryRef": "Date_Table.Day Name",
+              "nativeQueryRef": "Day Name"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Date_Table"
+                  }
+                },
+                "Property": "Day Name"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

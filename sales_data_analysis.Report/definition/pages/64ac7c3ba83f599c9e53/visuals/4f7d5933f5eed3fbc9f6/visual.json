@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "4f7d5933f5eed3fbc9f6",
+  "position": {
+    "x": 68.4177847366574,
+    "y": 97.028858353805035,
+    "z": 0,
+    "height": 408.018788974975,
+    "width": 451.55737926193882,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "Order ID"
+                }
+              },
+              "queryRef": "CountNonNull(100_Sales_Records.Order ID)",
+              "nativeQueryRef": "Order ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "Order Priority"
+                }
+              },
+              "queryRef": "100_Sales_Records.Order Priority",
+              "nativeQueryRef": "Order Priority"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "dipu with measure2"
+                }
+              },
+              "queryRef": "100_Sales_Records.dipu with measure2",
+              "nativeQueryRef": "dipu with measure2"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "dipu with measure1"
+                }
+              },
+              "queryRef": "100_Sales_Records.dipu with measure1",
+              "nativeQueryRef": "dipu with measure1"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

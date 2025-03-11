@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "26492fb5a6833fefddca",
+  "position": {
+    "x": 550,
+    "y": 155.10204081632654,
+    "z": 1000,
+    "height": 205.10204081632654,
+    "width": 414.28571428571428,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "Country"
+                }
+              },
+              "queryRef": "100_Sales_Records.Country",
+              "nativeQueryRef": "Country"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "unit_sold"
+                }
+              },
+              "queryRef": "100_Sales_Records.unit_sold",
+              "nativeQueryRef": "unit_sold"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "D_rank"
+                }
+              },
+              "queryRef": "100_Sales_Records.D_rank",
+              "nativeQueryRef": "D_rank"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

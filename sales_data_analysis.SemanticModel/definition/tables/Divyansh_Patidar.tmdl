@@ -1,0 +1,24 @@
+table Divyansh_Patidar
+	lineageTag: a299f171-f1f7-45a8-911f-2214ee34fe36
+
+	column hi
+		formatString: 0
+		lineageTag: a9017e3e-fd92-49e6-9163-b2bd6ea281f7
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [hi]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Divyansh_Patidar = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS(FILTER(
+				        ALL('100_Sales_Records'),
+				        YEAR('100_Sales_Records'[Order Date]) = 2010 &&
+				        MONTH('100_Sales_Records'[Order Date]) >= 1 &&
+				        MONTH('100_Sales_Records'[Order Date]) <= 12
+				    ),"hi",[Order ID])
+
+	annotation PBI_Id = 4958d6455ffd4bd0b5215e75647d3eb0
+

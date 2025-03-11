@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "8243cfc095650c246865",
+  "position": {
+    "x": 777.47482655292492,
+    "y": 430.41006397969926,
+    "z": 2000,
+    "height": 263.71946116675213,
+    "width": 466.484895931755,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "userName"
+                }
+              },
+              "queryRef": "100_Sales_Records.userName",
+              "nativeQueryRef": "userName"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

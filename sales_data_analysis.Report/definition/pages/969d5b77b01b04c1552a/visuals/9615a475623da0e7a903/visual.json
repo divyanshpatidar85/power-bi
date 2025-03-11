@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "9615a475623da0e7a903",
+  "position": {
+    "x": 56.953158946728074,
+    "y": 245.61049795776484,
+    "z": 0,
+    "height": 348.83809854870947,
+    "width": 347.05831233162422,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date_Table"
+                    }
+                  },
+                  "Property": "Month Name"
+                }
+              },
+              "queryRef": "Date_Table.Month Name",
+              "nativeQueryRef": "Month Name"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "unit_sold"
+                }
+              },
+              "queryRef": "100_Sales_Records.unit_sold",
+              "nativeQueryRef": "unit_sold"
+            }
+          ],
+          "showAll": true
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

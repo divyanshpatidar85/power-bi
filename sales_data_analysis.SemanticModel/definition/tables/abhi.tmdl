@@ -1,0 +1,23 @@
+table abhi
+	lineageTag: 9a65a98d-811e-4bf9-82f5-cb8241e063df
+
+	measure correct_and
+		lineageTag: feea5b1a-e6c5-49c8-9d52-b5167dd85a5c
+
+	column Date
+		formatString: 0
+		lineageTag: 8429715a-767f-487d-91e4-ecbe4e973b58
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition abhi = calculated
+		mode: import
+		source = Row("Date", BLANK())
+
+	annotation PBI_Id = ffe0c5ca2789439fb3f0f90c04643f5a
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

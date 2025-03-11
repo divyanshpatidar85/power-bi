@@ -1,0 +1,63 @@
+relationship 628c9c75-beb6-4f00-b3b9-02596659fd7c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 100_Sales_Records.'Ship Date'
+	toColumn: LocalDateTable_df9382f1-4912-4c70-9118-28c9bc30f369.Date
+
+relationship 33290097-2bed-c1ba-8d7e-0775f21d15d0
+	fromColumn: sales_target_csv.Date
+	toColumn: Date_Table.Date
+
+relationship 1991e7e3-683c-244b-df6d-0580829ca6b9
+	fromColumn: 100_Sales_Records.'Order Date'
+	toColumn: Date_Table.Date
+
+relationship fe4e1f1f-a746-4886-87df-8404a675220c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'sales_target_csv (2)'.Date
+	toColumn: LocalDateTable_30ab1889-11bc-43c9-84ec-2ccf13078090.Date
+
+relationship 93436c08-45fb-4e57-88d0-6980cd712746
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'sales_target_csv (3)'.Date
+	toColumn: LocalDateTable_eb112a1b-4d65-4e24-be46-c98f5129a217.Date
+
+relationship ce29ed94-903d-4ffc-975c-7902f59e8f4e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: hhhh.'Order Date'
+	toColumn: LocalDateTable_c126fc19-78b3-4e0d-94a6-817e9cc1ae53.Date
+
+relationship 338b1504-1e9c-4317-bdd1-775fe2881b82
+	joinOnDateBehavior: datePartOnly
+	fromColumn: just_doing_timepass.Date
+	toColumn: LocalDateTable_d4eb1bc3-5788-4b02-b673-3e21b76f4b56.Date
+
+relationship 3e020b2f-63b6-4b81-a51b-83d2fe4e3898
+	joinOnDateBehavior: datePartOnly
+	fromColumn: SpecialTable.'Max Date'
+	toColumn: LocalDateTable_cc3cedf8-50d7-4d8d-841c-effc1bef8b70.Date
+
+relationship a1432cc3-44c7-48fd-ba6f-bbb9626d4108
+	joinOnDateBehavior: datePartOnly
+	fromColumn: SpecialTable.'Min Date'
+	toColumn: LocalDateTable_d7194090-a977-4a21-89c4-6796a66b39a0.Date
+
+relationship 01827b0e-f4e5-4fa8-af29-b01cef1cdb04
+	joinOnDateBehavior: datePartOnly
+	fromColumn: divyanshpatidar85.created_at
+	toColumn: LocalDateTable_6d259f1a-a980-4f2f-a717-ef7f43fbea45.Date
+
+relationship 90f9f70c-f8e4-4e7f-8636-58fb3591752d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: divyanshpatidar85.updated_at
+	toColumn: LocalDateTable_253f65c7-28e2-4631-8147-9d2acc55372e.Date
+
+relationship a18b4be9-2e83-467b-b580-1f94b760bc02
+	joinOnDateBehavior: datePartOnly
+	fromColumn: snjsnj.'Order Date'
+	toColumn: LocalDateTable_8b299df3-eabc-497a-a534-77b490f32110.Date
+
+relationship 4c327e00-067c-4206-aee5-3e6b50ab83ae
+	joinOnDateBehavior: datePartOnly
+	fromColumn: snjsnj.'Ship Date'
+	toColumn: LocalDateTable_f6993e81-7916-47e9-87ae-20ffb9f548d8.Date
+

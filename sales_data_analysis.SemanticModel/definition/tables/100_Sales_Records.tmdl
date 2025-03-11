@@ -1,0 +1,828 @@
+table 100_Sales_Records
+	lineageTag: fa28ebf1-cdd1-46eb-b475-dc7ec890602f
+
+	measure Sum_of_Rev = CALCULATE(sum('100_Sales_Records'[Total Revenue]))
+		lineageTag: a669d85b-3000-45b7-9c25-6901d5cd266f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure unit_sold =
+			
+			var maxDate=if(HASONEFILTER(SpecialTable[Slicer]),VALUES(SpecialTable[Max Date]),Max(SpecialTable[Max Date]))
+			var minDate=if(HASONEFILTER(SpecialTable[Slicer]),VALUES(SpecialTable[Min Date]),Min(SpecialTable[Max Date]))
+			return
+			 CALCULATE(sum('100_Sales_Records'[Units Sold]),(FILTER(Date_Table,Date_Table[Date]<=maxDate && Date_Table[Date]>=minDate)))
+		formatString: 0
+		lineageTag: 544e5f9e-538f-41cb-8476-d0233dac8174
+
+	measure test_rev = CALCULATE(sum('100_Sales_Records'[Total Revenue]),All(Date_Table[Year]),All(Date_Table[Day Name]),ALL('100_Sales_Records'),All('100_Sales_Records'[Year]))
+		lineageTag: 0eb47ca0-8de6-48dd-a6ef-6b8a01dcbbed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure max_sales_day = MAXX(VALUES(Date_Table[Day Name]),[unit_sold])
+		formatString: 0
+		lineageTag: 76b1bbfa-3713-417f-a3ed-6191d86b8ec7
+
+	measure test =
+			
+			CALCULATE(MAX(Date_Table[Day Name]),
+			ALLEXCEPT(Date_Table,Date_Table[Day Name]),
+			Date_Table[Year]=MAX(Date_Table[Year]))
+		lineageTag: 5fcf3980-c671-4143-a56e-1d010a48c591
+
+	measure name_of_day = TOPN(1,VALUES(Date_Table[Day Name]),[max_sales_day])
+		lineageTag: 5fe34f8d-4206-4f67-83db-488784a6d6fc
+
+	measure Forecast = [unit_sold]*'Parameter 2'[Parameter Value]
+		formatString: 0
+		lineageTag: cd460275-146e-40ec-aaf4-b1bfb2f29618
+
+	measure time_intell_2017 = ```
+			
+			
+			    TOTALMTD(
+			        SUM('100_Sales_Records'[Units Sold]),
+			        DATESMTD(Date_Table[Date])  
+			    )
+			
+			
+			```
+		formatString: 0
+		lineageTag: eae7b5e3-9410-4f94-8c37-f918eeafa597
+
+	measure Qttt = TOTALQTD(sum('100_Sales_Records'[Unit Cost]),DATESQTD('100_Sales_Records'[Order Date]))
+		lineageTag: da23f67d-7914-4030-b951-aab8d2ef51d8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Previous 3 Months' = ```
+			
+			VAR SelectedDate = MAX('100_Sales_Records'[Order Date])  -- Get the selected date
+			VAR StartDate = EDATE(SelectedDate, -3)  -- Get the date 3 months before the selected date
+			VAR Result =
+			    CALCULATE(
+			        SUM('100_Sales_Records'[Unit Cost]),  -- Replace with the column you want to aggregate
+			        '100_Sales_Records'[Order Date] >= [Edate] && '100_Sales_Records'[Order Date] < [MaxDate]
+			    )
+			RETURN
+			    Result
+			
+			```
+		lineageTag: 72bf7905-ca15-4087-8a4f-da000ffafbdf
+
+	measure 'Rolling 3 Months Qty Sold' = ```
+			
+			(CALCULATE(
+			    SUM('100_Sales_Records'[Unit Cost]),  -- Sum the Qty Sold
+			   SAMEPERIODLASTYEAR( DATEADD(
+			        '100_Sales_Records'[Order Date],  -- Date column from your Date table
+			        -3, -- Go back 3 months
+			        MONTH  -- Units of time (MONTH)
+			    ))
+			))
+			
+			```
+		lineageTag: c11d6d1b-8a8f-41e3-ac72-6aa226958d3b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Edate = EOMONTH([MaxDate],1)
+		formatString: General Date
+		lineageTag: 5a56b37a-1d80-4707-b93b-f1db9d7849f6
+
+	measure MaxDate = CALCULATE(MAX('100_Sales_Records'[Order Date]),All(Date_Table))
+		formatString: d mmmm\, yyyy
+		lineageTag: 72da22a0-6018-4300-9140-00ec682b90c6
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	measure mohit =
+			DATEADD(
+			        '100_Sales_Records'[Order Date],  -- Date column from your Date table
+			        -3, -- Go back 3 months
+			        MONTH  -- Units of time (MONTH)
+			    )
+		formatString: General Date
+		lineageTag: 3db255f2-9ae3-4787-8980-58f56985af50
+
+	measure SUMISHERE = SUMX('100_Sales_Records','100_Sales_Records'[Units Sold]*5454)
+		formatString: 0
+		lineageTag: 59f1af9c-6a55-4414-9bfd-8167fac31f8d
+
+	measure testing = FILTER
+		lineageTag: 7a606b0a-c161-4889-85e8-a7a0c00e4385
+
+	measure userName = USERNAME()
+		lineageTag: 01aceb06-3d38-4020-8454-6a0453081507
+
+	measure userPrincipal = USERPRINCIPALNAME()
+		lineageTag: 50afb508-e205-41d0-b9d5-01258f7b9243
+
+	measure hasOneFilter = HASONEFILTER('100_Sales_Records'[Order ID])
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: fa10efb3-5f4a-47ef-b5a0-baa9f10fbcc1
+
+	measure same_mes = DISTINCT('100_Sales_Records'[same])
+		formatString: 0
+		lineageTag: 726439ff-c166-40eb-85c1-4b4c2ff0af7a
+
+	measure sum_of_disinct = SUMX(VALUES('100_Sales_Records'[Country]),CALCULATE(MAx('100_Sales_Records'[same])))
+		formatString: 0
+		lineageTag: 41fb8b72-cdaa-443b-8c8e-80875a5a0d16
+
+	measure value_ijsijis = COUNTX(VALUES('100_Sales_Records'[Country]),(COUNT('100_Sales_Records'[Country])))
+		formatString: 0
+		lineageTag: 5013661f-b04c-46a2-b22e-ac4d6b2bf628
+
+	measure g_unit_sold = sum('100_Sales_Records'[Units Sold])
+		formatString: 0
+		lineageTag: 603f863b-aa33-4a09-b933-932932816f5d
+
+	measure G_running_sum =
+			CALCULATE(
+			    sum('100_Sales_Records'[Units Sold]),
+			    FILTER(all('100_Sales_Records'),
+			    '100_Sales_Records'[Order Date]<=max('100_Sales_Records'[Order Date])
+			    &&YEAR('100_Sales_Records'[Order Date])=Year(MAX('100_Sales_Records'[Order Date]))))
+		formatString: 0
+		lineageTag: 3ca993c7-559d-4c5d-aae9-47c938c7fa8e
+
+	measure g_Total_unit_sold = CALCULATE([g_unit_sold],All('100_Sales_Records'))
+		formatString: 0
+		lineageTag: fe595641-2829-436c-af40-68fc1522c3f7
+
+	measure g_percentage_unit_sold = DIVIDE([g_unit_sold],[g_Total_unit_sold])*100
+		lineageTag: ac7ca00c-bea7-46e1-94b3-22b21bc51ed8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last_2_Month_Moving_Avg = ```
+			
+			CALCULATE(
+			    AVERAGE('100_Sales_Records'[Units Sold]),
+			    FILTER(
+			        ALL('100_Sales_Records'),
+			        DATESINPERIOD(
+			        '100_Sales_Records'[Order Date],
+			        MAX('100_Sales_Records'[Order Date]),
+			        -3,
+			        MONTH
+			    )
+			    )
+			)
+			
+			```
+		lineageTag: 40dc24ed-f5e9-44cc-90d1-a44e97293b54
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Sales_Last3Months = ```
+			
+			CALCULATE(
+			    SUM('100_Sales_Records'[Units Sold]), 
+			    DATESINPERIOD(
+			        '100_Sales_Records'[Order Date], 
+			        MAX('100_Sales_Records'[Order Date]), 
+			        -3, 
+			        MONTH
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: 662ce461-39ba-4b94-b2b3-d294e732a0f8
+
+	measure g_month_context = CALCULATE(sum('100_Sales_Records'[Units Sold]),All(Date_Table[Month Name]))
+		formatString: 0
+		lineageTag: 6966ccc0-c52f-4cc2-9d5e-057bd7ece74b
+
+	measure Sum_of_Last_three_Month = CALCULATE(sum('100_Sales_Records'[Units Sold]))
+		formatString: 0
+		lineageTag: 9a7f2cd8-15d6-4a0d-9509-fa405d3cdc1c
+
+	measure Last3MonthsUnitSold = ```
+			
+			CALCULATE(
+			    SUM('100_Sales_Records'[Units Sold]), 
+			    DATESINPERIOD(
+			        'Date_Table'[Date], 
+			        MAX('Date_Table'[Date]), 
+			        -3, 
+			        MONTH
+			    )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 723d6f2e-044d-4a15-8fab-af591397741a
+
+	measure max_date = EOMONTH(MAX('Date_Table'[Date]), -2) + 1
+		formatString: General Date
+		lineageTag: 190974f4-be91-4a43-be1e-1852ac7bbaa5
+
+	measure g_last_three_month_sales
+		lineageTag: ef434b68-637a-46bc-8b70-3c45723d8b46
+
+	measure g_avg_three_month_unit_sold =
+			if(DATEDIFF([MinDate],MAX('Date_Table'[date]),MONTH)=0,[Last3MonthsUnitSold],
+			                            if(DATEDIFF([MinDate],MAX('Date_Table'[date]),MONTH)=1,[Last3MonthsUnitSold]/2,[Last3MonthsUnitSold]/3)
+			                            )
+		lineageTag: ae85d1e1-8af4-45d4-9df7-f0f99ff6a4e1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure MinDate = CALCULATE(Min('100_Sales_Records'[Order Date]),All(Date_Table))
+		formatString: General Date
+		lineageTag: a303ec3e-8d6f-4ef5-8d16-70af39f06749
+
+	measure g_date_diff = MAX('100_Sales_Records'[Order Date])-MAX('100_Sales_Records'[Ship Date])
+		formatString: General Date
+		lineageTag: 3e0e868b-d575-47aa-a199-b8327fca11b6
+
+	measure r_previous_sales = ```
+			
+			CALCULATE(
+			    SUM('100_Sales_Records'[Units Sold]),
+			    DATESINPERIOD(
+			        Date_Table[Date], 
+			        MAX(Date_Table[Date]), 
+			        -12, 
+			        MONTH
+			    )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 79d42ae5-dc4b-4559-b68f-c367e7bd9c32
+
+	measure r_same_period = ```
+			
+			if(HASONEFILTER(Date_Table[Month Name]),
+			CALCULATE(
+			    SUM('100_Sales_Records'[Units Sold]),
+			    DATESINPERIOD(
+			        Date_Table[Date], 
+			        MAX(Date_Table[Date]), 
+			        -12, 
+			        MONTH
+			    )
+			)
+			)
+			
+			```
+		formatString: 0
+		lineageTag: cd057613-70c3-49f3-ac16-7a4ebeffc095
+
+	measure r_sumx
+		lineageTag: 4d519d9f-79bb-44b6-961e-9549ec235b70
+
+	measure r_month_filter
+		lineageTag: 95afb535-71c0-453f-bc65-6dae8190cfcd
+
+	measure g_max_date = MAX('100_Sales_Records'[Order Date])
+		formatString: General Date
+		lineageTag: 87aed89b-3427-4482-8f46-e76d89bf8299
+
+	measure r_dis = CALCULATE([r_previous_sales],FILTER(All(Date_Table),Date_Table[Month Name]))
+		formatString: 0
+		lineageTag: 28e4f857-1061-40b7-a612-cfe2c4b6528c
+
+	measure g_mid_avg = ```
+			
+			CALCULATE (
+			    SUM ( '100_Sales_Records'[Units Sold] ),
+			    DATESBETWEEN( 
+			        (Date_Table[Date]),
+			        EOMONTH(min(Date_Table[Date]),-2)+1,
+			        EOMONTH (MAX( Date_Table[Date] ), 1 )
+			        
+			    )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: b42886c6-9e9b-41be-96cf-1857425a9788
+
+	measure g_eo_month_date =
+			
+			EOMONTH(EOMONTH(MIN('Date_Table'[Date]), -1),-1)+1
+		formatString: General Date
+		lineageTag: 096c6686-40a3-4451-a817-ce9c3097666f
+
+	measure g_mid_2 = ```
+			
+			CALCULATE (
+			    SUM ( '100_Sales_Records'[Units Sold] ),
+			    Date_Table[Date]>= min(Date_Table[Date])-30 && Date_Table[Date]<= MAX(Date_Table[Date])+30 
+			     
+			    )
+			
+			
+			```
+		formatString: 0
+		lineageTag: 2b3f4eeb-86a9-45df-aca8-551a9cd1bb1c
+
+	measure jan_unit_sum = CALCULATE(sum('100_Sales_Records'[Units Sold]),Date_Table[Month Name]="May")
+		formatString: 0
+		lineageTag: 773f5728-68ae-410f-a5c4-f7a3c1369db2
+
+	measure g_T_running_sum = ```
+			
+			CALCULATE(
+			    [unit_sold],
+			    FILTER(
+			        '100_Sales_Records',
+			        '100_Sales_Records'[Order Date] <= EARLIER('100_Sales_Records'[Order Date]
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: 3fe76cf1-2557-4e4a-8a02-20887e6a045c
+
+	measure unit_sold2 =
+			
+			var maxDate=SELECTEDVALUE(SpecialTable[Max Date])
+			var minDate=SELECTEDVALUE(SpecialTable[Min Date])
+			// var tt=if(HASONEFILTER(SpecialTable[Slicer]),values(SpecialTable[Max Date]))
+			return
+			 CALCULATE(sum('100_Sales_Records'[Units Sold]),(FILTER(Date_Table,Date_Table[Date]<=minDate && Date_Table[Date]>=minDate)))
+		formatString: 0
+		lineageTag: 695875fa-cada-422e-8553-424ff270273c
+
+	measure year_measure = if(HASONEFILTER('SpecialTable'[Slicer]),VALUES('SpecialTable'[Year]),"All")
+		lineageTag: 10d5b4de-2880-4c79-af49-4b6c47701293
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure test_sel_val = if(HASONEFILTER(SpecialTable[Slicer]),VALUES(SpecialTable[Max Date]),Max(SpecialTable[Max Date]))
+		formatString: General Date
+		lineageTag: d7da9a17-2ed0-44c9-b2bd-faf39d443ee4
+
+	measure a_unit_sold = SumX(All('100_Sales_Records'),'100_Sales_Records'[Units Sold])
+		formatString: 0
+		lineageTag: de28ceda-6ba7-4ec7-afb9-414b4f6b49dc
+
+	measure a_3_months_unitSold_sum = ```
+			CALCULATE(
+			    sum('100_Sales_Records'[Units Sold]),
+			    (DATESINPERIOD(
+			    'Date_Table'[Date],
+			    EOMONTH(MAX('Date_Table'[Date]),-2)+1,
+			    3,
+			    MONTH))
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 5a49f02d-2893-4bb6-9c0d-6a63666f736b
+
+	measure a_percentage_totalunitsold_vs_a3unitSold = DIVIDE([a_3_months_unitSold_sum],[a_unit_sold])*100
+		lineageTag: efcf8d9b-0299-419f-b306-3a400fd6d348
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure a_tab_unit_sold = ```
+			
+			
+			VAR mindate = SELECTEDVALUE(Date_Table[minDateDate])
+			VAR maxdate = SELECTEDVALUE(Date_Table[maxDate])
+			RETURN
+			    CALCULATE(
+			        SUM('100_Sales_Records'[Units Sold]),
+			       DATESBETWEEN(Date_Table[Date],mindate,maxdate)
+			      
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: aade18b9-5448-43a3-9a8f-f1004354012a
+
+	measure a_min_date = ```
+			
+			 var a=(SELECTEDVALUE(Date_Table[minDateDate]))
+			 return a
+			```
+		formatString: General Date
+		lineageTag: 99c3f056-e934-4579-9f49-404c277f234f
+
+	measure a_max_date = SELECTEDVALUE(Date_Table[maxDate])
+		formatString: General Date
+		lineageTag: c1008335-2ae2-4a5f-b324-c871b5a9d5fe
+
+	measure f_unit_sold =
+			
+			var minDate=Min((Date_Table[Date]))
+			var manDate=MAX((Date_Table[Date]))
+			return
+			CALCULATE(sum('100_Sales_Records'[Units Sold]),DATESBETWEEN(Date_Table[Date],minDate,manDate))
+		formatString: 0
+		lineageTag: c0b05ce7-ef59-4dcc-80a7-8022a5646fb2
+
+	measure f_min_date = min(Date_Table[date])
+		formatString: General Date
+		lineageTag: 0d4380e5-809a-4b84-9d22-c7543bf344fc
+
+	measure D_selected = ```
+			
+			IF (
+			    HASONEFILTER(Date_Table[Year]), 
+			    MAX(Date_Table[Year]), 
+			    MAX(Date_Table[Year])
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 8ee95481-eb40-4763-ae4f-3a18a19cb240
+
+	measure d_max_year = Max(Date_Table[Date])
+		formatString: General Date
+		lineageTag: 10969680-5912-4076-8a26-91f9295b7ccc
+
+	measure J_max = MAXX(All(Date_Table),Date_Table[Date])
+		formatString: General Date
+		lineageTag: 75684238-e401-44cf-9fb3-138f5f5813b8
+
+	measure y_unit_sold = sum('100_Sales_Records'[Units Sold])
+		formatString: 0
+		lineageTag: 6be19ffc-4923-4cbf-a376-019f1f755495
+
+	measure y_max_unit_sold_com =
+			CALCULATE(
+			    MAXX(
+			        VALUES(Date_Table[Month Name])
+			        ,[y_unit_sold]
+			    )
+			    ,DATESBETWEEN(
+			    Date_Table[Date],
+			    EOMONTH(MAX(Date_Table[Date]),-MAX(Date_Table[Month]))+1,
+			    EOMONTH(EOMONTH(MAX(Date_Table[Date]),-MAX(Date_Table[Month]))+1,11)
+			    )
+			    )
+		formatString: 0
+		lineageTag: ad088e4a-dde4-4458-9467-ea1f879f216d
+
+	measure RegionMax = CALCULATE(Max('100_Sales_Records'[Units Sold]),ALLEXCEPT('100_Sales_Records','100_Sales_Records'[Region]))
+		formatString: 0
+		lineageTag: 89305836-7320-4a89-ab99-ffbe969133ce
+
+	measure index_id_here = TOPN(1,INDEX(5,All('100_Sales_Records'[Units Sold]),ORDERBY('100_Sales_Records'[Units Sold],DESC)))
+		formatString: 0
+		lineageTag: c4bcef50-46c4-4a43-8f89-499b5dee6372
+
+	measure 'dipu with measure1' = ```
+			
+			IF(
+			    CALCULATE(MAX('100_Sales_Records'[Order Priority])) = "H", 
+			    "I am dipu", 
+			    "NA"
+			)
+			
+			```
+		lineageTag: 2c90eca4-d6a2-4440-bf09-da2c9d9be4a6
+
+	measure 'dipu with measure2' = ```
+			
+			CALCULATE(
+			    MAX('100_Sales_Records'[Order Priority])
+			)
+			
+			```
+		lineageTag: 065abdf8-aec0-41f1-b0c8-b9ed9b28e2fd
+
+	measure D_rank = RankX(All('100_Sales_Records'[Country]),[unit_sold],,ASC)
+		formatString: 0
+		lineageTag: 8ae501c9-4221-42a1-bb93-8e0c73ba4b23
+
+	measure 'RankBasedonunit sold' =
+			
+			// RankX(ALL('100_Sales_Records'[Country]),[unit_sold],,ASC)
+			Rank(SKIP,All('100_Sales_Records'[Country]),ORDERBY([unit_sold],asc))
+		formatString: 0
+		lineageTag: 782dbce2-fcc7-469a-a3f5-417d3969342c
+
+	measure Measure = TOTALQTD(sum('100_Sales_Records'[Unit Cost]),)
+		lineageTag: 5cb7c8b6-a381-4cb5-83ca-212721c14504
+
+	measure divy_running_sum = ```
+			
+			VAR y = MAX('100_Sales_Records'[Order Date])  
+			VAR monthnum = MONTH(y)  
+			VAR currentYear = YEAR(y) 
+			VAR half_year = IF(monthnum <= 6, 1, 2) 
+			VAR startMonth = IF(half_year = 1, 1, 7) 
+			VAR endMonth = monthnum 
+			VAR dateFilter = 
+			    FILTER(
+			        ALL('100_Sales_Records'),  
+			        YEAR('100_Sales_Records'[Order Date]) = currentYear &&  
+			        MONTH('100_Sales_Records'[Order Date]) >= startMonth &&  
+			        MONTH('100_Sales_Records'[Order Date]) <= endMonth  
+			    )
+			RETURN
+			    CALCULATE(
+			        SUM('100_Sales_Records'[Units Sold]), 
+			        dateFilter  
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: fbbfdab3-aacc-4697-bae3-c48ebc99687c
+
+	measure divy2 = ```
+			
+			SUMX('100_Sales_Records',
+			    CALCULATE(
+			        sum('100_Sales_Records'[Units Sold]),
+			        FILTER(
+			        ALL('100_Sales_Records'),
+			        '100_Sales_Records'[Order Date] <= EARLIER('100_Sales_Records'[Order Date])
+			    )
+			    )
+			   
+			)
+			
+			```
+		formatString: 0
+		lineageTag: e036bb40-fa0b-4cfb-adad-e45365b79809
+
+	measure divy3 = ```
+			
+			SUMX('100_Sales_Records',
+			    CALCULATE(
+			        sum('100_Sales_Records'[Units Sold]),
+			        FILTER(
+			        ALL('100_Sales_Records'),
+			        '100_Sales_Records'[Order Date] <= EARLIER('100_Sales_Records'[Order Date])
+			    )
+			    
+			   
+			))
+			
+			```
+		formatString: 0
+		lineageTag: f1f663f3-62af-4df3-a479-f7ce5fe19d0b
+
+	measure 'Table 2' = DateDiff(Date(2002,04,6),Date(2002,05,30),WEEK)
+		formatString: 0
+		lineageTag: 9dcc27e6-d06f-422e-bdad-51a20cecba9d
+
+	measure Max_unit_Sold = Max('100_Sales_Records'[Units Sold])
+		formatString: 0
+		lineageTag: 1255bf30-8ac0-4f63-ba66-cb3373a3181e
+
+	measure Date_unit_sold = CALCULATE(sum('100_Sales_Records'[Units Sold]),(DATEADD('100_Sales_Records'[Order Date],1,YEAR)))
+		formatString: 0
+		lineageTag: 94621a33-c975-4f3c-afcd-fdc27b2279d1
+
+	measure Dates_add = ```
+			if(HASONEVALUE('100_Sales_Records'[Order Date]),DATEADD('100_Sales_Records'[Order Date],1,YEAR),BLANK())
+			
+			```
+		formatString: General Date
+		lineageTag: bacd78ee-8937-483f-aa9e-2484d74223d8
+
+	column Region
+		dataType: string
+		lineageTag: 26e204a1-d4c7-44d8-94f4-78a938373326
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: b3913614-7331-4d81-be3e-c81d437b7985
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Type'
+		dataType: string
+		lineageTag: 6c937c8c-7b55-4206-9471-c50330d981a2
+		summarizeBy: none
+		sourceColumn: Item Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Channel'
+		dataType: string
+		lineageTag: bf35bf29-07ab-4069-94fc-3ee802036438
+		summarizeBy: none
+		sourceColumn: Sales Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Priority'
+		dataType: string
+		lineageTag: e592420c-351e-4a77-b22f-e00fc6504f94
+		summarizeBy: none
+		sourceColumn: Order Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: d mmmm\, yyyy
+		lineageTag: e6e2c62a-e192-4314-a60e-9f1e1be56514
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Order ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 79024331-0d7f-4278-b132-5bba9cdfb6d2
+		summarizeBy: count
+		sourceColumn: Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3f0a8870-bb00-4d37-a44b-e0ce564a8c8b
+		summarizeBy: none
+		sourceColumn: Ship Date
+
+		variation Variation
+			isDefault
+			relationship: 628c9c75-beb6-4f00-b3b9-02596659fd7c
+			defaultHierarchy: LocalDateTable_df9382f1-4912-4c70-9118-28c9bc30f369.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Units Sold'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9e0e4f77-4430-438d-825a-5e76df74102b
+		summarizeBy: sum
+		sourceColumn: Units Sold
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Price'
+		dataType: double
+		lineageTag: 3cc62a02-6fed-4773-9ef2-5c25d77f7823
+		summarizeBy: sum
+		sourceColumn: Unit Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Unit Cost'
+		dataType: double
+		lineageTag: a104d65b-b4e4-4d85-9e3e-cb8313b5e6b2
+		summarizeBy: sum
+		sourceColumn: Unit Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Revenue'
+		dataType: double
+		lineageTag: a80cd59c-bfcb-4ac1-98cd-5dc4e30318af
+		summarizeBy: sum
+		sourceColumn: Total Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Cost'
+		dataType: double
+		lineageTag: c04f806a-25e3-447f-9bf6-afaefc0ea8d7
+		summarizeBy: sum
+		sourceColumn: Total Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Profit'
+		dataType: double
+		lineageTag: 237180d1-c592-437b-a2bd-d89dd31d38f8
+		summarizeBy: sum
+		sourceColumn: Total Profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Day of Week'
+		dataType: int64
+		formatString: 0
+		lineageTag: a917cf58-ea61-4683-bbfd-a704eed5b57a
+		summarizeBy: sum
+		sourceColumn: Day of Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name'
+		dataType: string
+		lineageTag: 23b52af7-8e8e-4ff0-b706-2687030f20a6
+		summarizeBy: none
+		sourceColumn: Day Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysToDeliver
+		dataType: double
+		lineageTag: 9545603c-038f-4d85-877c-678b2fc2dcf0
+		summarizeBy: sum
+		sourceColumn: DaysToDeliver
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: 223ce1cf-4a89-44e8-8d58-8d14db8f7fa8
+		summarizeBy: none
+		sourceColumn: Month Name
+		sortByColumn: 'Month no'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: d9a7637e-f0e2-43b8-924a-db558ae1ef29
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month no' = MONTH('100_Sales_Records'[Order Date])
+		formatString: 0
+		lineageTag: 722cfd83-0f74-4e61-9f06-557dca8450d5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column g_week_diff = ABS(DATEDIFF('100_Sales_Records'[Order Date],'100_Sales_Records'[Ship Date],WEEK))
+		dataType: double
+		formatString: 0.00
+		lineageTag: b56d8489-1bab-45af-9c0a-1cfc1d14c9bd
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column = DIVIDE( '100_Sales_Records'[Ship Date] - '100_Sales_Records'[Order Date] , 7 )
+		dataType: double
+		formatString: 0.00
+		lineageTag: 0a2282d0-65bd-45af-abc4-ee2977594e2c
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Column 2' =
+			
+			SWITCH(TRUE(),'100_Sales_Records'[Order Priority]="C","Hi I am dipu","NO Idea")
+		lineageTag: 2c20583c-7beb-4d97-acd0-1e81d4b46f72
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 100_Sales_Records = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("E:\Addend Analytics\power-bi\100-Sales-Records\100 Sales Records.csv"),[Delimiter=",", Columns=14, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Region", type text}, {"Country", type text}, {"Item Type", type text}, {"Sales Channel", type text}, {"Order Priority", type text}, {"Order Date", type date}, {"Order ID", Int64.Type}, {"Ship Date", type date}, {"Units Sold", Int64.Type}, {"Unit Price", type number}, {"Unit Cost", type number}, {"Total Revenue", type number}, {"Total Cost", type number}, {"Total Profit", type number}}),
+				    #"Inserted Day of Week" = Table.AddColumn(#"Changed Type", "Day of Week", each Date.DayOfWeek([Order Date]), Int64.Type),
+				    #"Inserted Day Name" = Table.AddColumn(#"Inserted Day of Week", "Day Name", each Date.DayOfWeekName([Order Date]), type text),
+				    #"Added Custom" = Table.AddColumn(#"Inserted Day Name", "DaysToDeliver", each [Ship Date]-[Order Date]),
+				    #"Calculated Total Days" = Table.TransformColumns(#"Added Custom",{{"DaysToDeliver", Duration.TotalDays, type number}}),
+				    #"Inserted Month Name" = Table.AddColumn(#"Calculated Total Days", "Month Name", each Date.MonthName([Order Date]), type text),
+				    #"Inserted Month" = Table.AddColumn(#"Inserted Month Name", "Month", each Date.Month([Order Date]), Int64.Type),
+				    #"Sorted Rows" = Table.Sort(#"Inserted Month",{{"Month", Order.Ascending}}),
+				    #"Inserted Year" = Table.AddColumn(#"Sorted Rows", "Year", each Date.Year([Order Date]), Int64.Type),
+				    #"Removed Columns" = Table.RemoveColumns(#"Inserted Year",{"Month"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

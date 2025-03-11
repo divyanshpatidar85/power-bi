@@ -1,0 +1,20 @@
+table 'Table 2'
+	lineageTag: 1c3fe976-e43f-4895-9da9-4617a32d6b26
+
+	column 'Order Date'
+		formatString: 0
+		lineageTag: 9eeb4fbe-c1b7-4a51-9fea-f8a4c2c9842c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Order Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Table 2' = calculated
+		mode: import
+		source = Row("Order Date", BLANK())
+
+	annotation PBI_Id = c59398f49db2435f903cfbad31364006
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

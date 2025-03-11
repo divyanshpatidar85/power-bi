@@ -1,0 +1,23 @@
+table just_doing_timepass
+	lineageTag: dcccbb4c-4b77-4d11-b1c6-8184df594cd4
+
+	column Date
+		formatString: General Date
+		lineageTag: bae726f1-5927-4681-bce2-059aa0293fdf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 338b1504-1e9c-4317-bdd1-775fe2881b82
+			defaultHierarchy: LocalDateTable_d4eb1bc3-5788-4b02-b673-3e21b76f4b56.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition just_doing_timepass = calculated
+		mode: import
+		source = CALENDARAUTO(12)
+
+	annotation PBI_Id = 588a4b0420f34dcfbbcd99b8eb97382b
+

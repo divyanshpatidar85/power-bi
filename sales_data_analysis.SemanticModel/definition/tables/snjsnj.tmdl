@@ -1,0 +1,226 @@
+table snjsnj
+	lineageTag: a17b4a97-e338-4b3c-a4dd-e0799fb2e3ed
+
+	column Region
+		lineageTag: 83b68a94-466a-43c1-bc90-9e2ce3915ccd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Region]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		lineageTag: acaa4c71-9b8c-4d2d-a499-0d30c19ab5de
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Country]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Type'
+		lineageTag: 9dd480e6-23a9-43bc-9219-fa743adb9b3f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Item Type]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Channel'
+		lineageTag: ba28a5f5-e949-4398-8cae-8655b587b378
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Sales Channel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Priority'
+		lineageTag: 41d3f468-ac81-4be1-9a8c-dab72fe4cf75
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Order Priority]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		formatString: General Date
+		lineageTag: 55d21ea7-ed9c-46d6-86d2-f05534c36f05
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Order Date]
+
+		variation Variation
+			isDefault
+			relationship: a18b4be9-2e83-467b-b580-1f94b760bc02
+			defaultHierarchy: LocalDateTable_8b299df3-eabc-497a-a534-77b490f32110.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order ID'
+		formatString: 0
+		lineageTag: ce48e97f-0327-4a7f-bc52-39bc736c3c62
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Order ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Date'
+		formatString: General Date
+		lineageTag: b73fd304-0e59-4289-894f-df1ee935942f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Ship Date]
+
+		variation Variation
+			isDefault
+			relationship: 4c327e00-067c-4206-aee5-3e6b50ab83ae
+			defaultHierarchy: LocalDateTable_f6993e81-7916-47e9-87ae-20ffb9f548d8.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Units Sold'
+		formatString: 0
+		lineageTag: 75db2f98-1b99-4717-b16a-dc3721826ce5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Units Sold]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Price'
+		lineageTag: b95af534-d736-4ac9-a1cc-6aa46c0a1c63
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Unit Price]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Unit Cost'
+		lineageTag: 7c419f76-9fdc-45a7-bc1e-0c5de3c183df
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Unit Cost]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Revenue'
+		lineageTag: bbb14d11-b2cb-4789-b51b-20f821764fc3
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Total Revenue]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Cost'
+		lineageTag: 53dee3aa-ea38-4fcd-b88e-57dae4579c50
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Total Cost]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Profit'
+		lineageTag: 25bd5111-9584-45e8-9d17-1bad18418e41
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Total Profit]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Day of Week'
+		formatString: 0
+		lineageTag: ba94fd3d-0c8e-4c87-93bc-386d01756ef6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Day of Week]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name'
+		lineageTag: 75b33ef8-bcdc-4436-8fd2-4feb5d52822e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Day Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysToDeliver
+		lineageTag: 6cc54fea-a94a-45bc-92c4-7c502bc697bc
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[DaysToDeliver]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Month Name'
+		lineageTag: 86d82a6f-ebf5-4941-a15c-3df9bd53f9e2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Month Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: af61f12d-dcfd-4263-a442-4d33e44a4773
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month no'
+		formatString: 0
+		lineageTag: 147d8add-0505-472f-8602-d9edce0184a8
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Month no]
+
+		annotation SummarizationSetBy = Automatic
+
+	column g_week_diff
+		lineageTag: e3534dd7-f052-463a-a952-6f64f734886e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[g_week_diff]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		lineageTag: c2fd14ba-2b0d-4a65-8b15-37ea1040d98b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Column]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Column 2'
+		lineageTag: 0b10872d-913a-4165-8105-3eaf38817de6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 100_Sales_Records[Column 2]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition snjsnj = calculated
+		mode: import
+		source = TOPN(13,'100_Sales_Records','100_Sales_Records'[Unit Cost])
+
+	annotation PBI_Id = 2e210fa4e2b04e93b6bdbe6bc202e795
+

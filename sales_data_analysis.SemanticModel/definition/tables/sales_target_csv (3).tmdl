@@ -1,0 +1,65 @@
+table 'sales_target_csv (3)'
+	lineageTag: 0b2cad38-635c-4663-9065-4f7e91f463e7
+
+	column Mode
+		dataType: string
+		lineageTag: d9f277ae-1ee6-40ff-a82c-405ec99ce758
+		summarizeBy: none
+		sourceColumn: Mode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 9e66074e-4e82-4c54-9b5b-cd5da7549e73
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		lineageTag: eb0d9398-f7df-48c0-adeb-499edbadc49f
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b20ca8c-0e8d-46a6-ae7f-7db5237f4c4b
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e7431c85-923a-41ad-967b-fae7a8ba917f
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 93436c08-45fb-4e57-88d0-6980cd712746
+			defaultHierarchy: LocalDateTable_eb112a1b-4d65-4e24-be46-c98f5129a217.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'sales_target_csv (3)' = m
+		mode: import
+		source =
+				let
+				    Source = sales_target_csv
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

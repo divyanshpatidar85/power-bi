@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "c9f90d89b0bdaeb08951",
+  "position": {
+    "x": 833.4530140647355,
+    "y": 103.24865696622844,
+    "z": 1000,
+    "height": 157.98288475555435,
+    "width": 368.21207785546528,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "Rolling 3 Months Qty Sold"
+                }
+              },
+              "queryRef": "100_Sales_Records.Rolling 3 Months Qty Sold",
+              "nativeQueryRef": "Rolling 3 Months Qty Sold"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "100_Sales_Records"
+                  }
+                },
+                "Property": "Rolling 3 Months Qty Sold"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

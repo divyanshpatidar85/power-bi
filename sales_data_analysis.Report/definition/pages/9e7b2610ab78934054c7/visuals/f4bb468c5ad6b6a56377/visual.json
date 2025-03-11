@@ -1,0 +1,97 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "f4bb468c5ad6b6a56377",
+  "position": {
+    "x": 428.50017611835153,
+    "y": 122.63473053892216,
+    "z": 1000,
+    "height": 548.24938358576969,
+    "width": 261.13983797111661,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "Country"
+                }
+              },
+              "queryRef": "100_Sales_Records.Country",
+              "nativeQueryRef": "Country"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "g_unit_sold"
+                }
+              },
+              "queryRef": "100_Sales_Records.g_unit_sold",
+              "nativeQueryRef": "g_unit_sold"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "g_Total_unit_sold"
+                }
+              },
+              "queryRef": "100_Sales_Records.g_Total_unit_sold",
+              "nativeQueryRef": "g_Total_unit_sold"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "100_Sales_Records"
+                    }
+                  },
+                  "Property": "g_percentage_unit_sold"
+                }
+              },
+              "queryRef": "100_Sales_Records.g_percentage_unit_sold",
+              "nativeQueryRef": "g_percentage_unit_sold"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "100_Sales_Records"
+                  }
+                },
+                "Property": "Country"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "cb09ac3751ac777339de",
+  "position": {
+    "x": 798.57142857142867,
+    "y": 82.857142857142861,
+    "z": 3000,
+    "height": 161.42857142857144,
+    "width": 481.42857142857144,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "abhi"
+                    }
+                  },
+                  "Property": "correct_and"
+                }
+              },
+              "queryRef": "100_Sales_Records.dipu",
+              "nativeQueryRef": "correct_and"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "abhi"
+                  }
+                },
+                "Property": "correct_and"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
